@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+
+{% block title %}博客{% endblock title %}
+
+{% load staticfiles %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'css/write.css' %}">
+    <style>
+        body {
+            padding: 0;
+        }
+
+        .art-list > li {
+            padding: 10px 20px;
+            margin-bottom: 0;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-weight: 900;
+            background: none;
+            border-left: 5px solid #555;
+            box-sizing: border-box;
+        }
+
+        .article-list > li {
+            color: #666;
+            border-color: #fff;
+        }
+
+        .art-list > li:hover {
+            border-left: 5px solid #999;
+            background: #999 !important;
+        }
+
+        .article-list > li:hover {
+            border-left: 5px solid #eee;
+            background: #eee !important;
+        }
+
+        .art-drop-down-content {
+            left: auto;
+            right: -10px;
+            width: 100px;
+            border-radius: 10px;
+        }
+
+        .art-drop-down-content::before, .art-drop-down-content::after {
+            left: auto;
+            right: 13px;
+            top: -8px;
+            pointer-events: none;
+        }
+
+        .list-item-active {
+            border-left: 5px solid #ff7731 !important;
+            background: #999 !important;
+        }
+
+        .article-item-active {
+            border-left: 5px solid #ff7731 !important;
+            background: #eee !important;
+        }
+    </style>
+{% endblock link %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+    <div class="layout">
+        <div class="side-left am-text-center" style="overflow: auto;">
+            <div class="am-padding-top-lg">
+                <a class="am-btn am-btn-danger am-round am-text-lg am-margin-sm" style="width: 90%;"
+                   href="{% url 'index' %}">回首页</a>
+            </div>
+            <div class="am-text-left am-padding-vertical-lg">
+                <div class="am-round am-text-md am-icon-plus am-padding-horizontal" style="color: #fff;font-weight: 700; cursor: pointer;" id="ant_create"> 新建文集</div>
+                <div class="am-modal am-modal-prompt" tabindex="-1" id="ant-create-prompt">
+                    <div class="am-modal-dialog">
+                        <div class="am-modal-hd">文集名称</div>
+                        <div class="am-modal-bd">
+                            <input type="text" class="am-modal-prompt-input">
+                        </div>
+                        <div class="am-modal-footer">
+                            <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                            <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ant-list-container">
+                <ul class="am-list am-list-static am-text-left art-list" id="ant-list">
+                    {% for ant in ant_list %}
+                        <li class="{% ifequal ant.id active_ant_id %}list-item-active{% endifequal %}" onclick="javascript:location.href='{% url 'write' %}?active_ant_id={{ ant.id }}'">
+                            <span class="am-text-truncate" style="display: inline-block;width: 80%;">{{ ant.name }}</span>
+                            <span class="am-dropdown am-align-right" data-am-dropdown>
+                                <i class="am-icon-gear am-icon-fw am-dropdown-toggle nobubble" data-am-dropdown-toggle></i>
+                                <ul class="am-dropdown-content art-drop-down-content">
+                                    <li><a class="am-icon-edit ant-update-btn nobubble" href="#"> 修改文集</a></li>
+                                    <li class="am-divider"></li>
+                                    <li><a class="am-icon-remove nobubble" href="{% url 'anthology_delete' %}?id={{ ant.id }}"> 删除文集</a></li>
+                                </ul>
+                            </span>
+                            <div class="am-modal am-modal-prompt ant-update-prompt" tabindex="-1">
+                                <div class="am-modal-dialog nobubble" style="color: #000;">
+                                    <div class="am-modal-hd">修改名称</div>
+                                    <div class="am-modal-bd">
+                                        <input type="text" class="am-modal-prompt-input">
+                                        <input type="hidden" class="am-modal-prompt-input" value="{{ ant.id }}">
+                                    </div>
+                                    <div class="am-modal-footer">
+                                        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                                        <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="list-center am-text-center">
+            <div class="am-text-left">
+                <div class="am-round am-text-md am-icon-plus am-margin-lg" style="color: #333;font-weight: 700; cursor: pointer" id="art_create"> 新建文章</div>
+                <ul class="am-list am-list-static am-text-left art-list article-list am-margin-top-0">
+                    {% for art in art_list %}
+                        <li class="{% ifequal art.id art_current.id %}article-item-active{% endifequal %}" style="display: flex; align-items: center; width: 100%;" onclick="javascript:location.href='{% url 'write' %}?active_ant_id={{ art.anthology_id }}&active_art_id={{ art.id }}'">
+                            <div style="flex: auto; max-width: 90%;">
+                                <h2 class="am-text-truncate">{{ art.title }}</h2>
+                                <div class="am-text-truncate am-text-sm am-text-truncate" style="color: #999;">{{ art.content | striptags }}</div>
+                            </div>
+                            <div class="am-dropdown" style="flex: none;" data-am-dropdown>
+                                <i class="am-icon-gear am-icon-fw am-dropdown-toggle nobubble" data-am-dropdown-toggle></i>
+                                <ul class="am-dropdown-content art-drop-down-content">
+                                    <li><a class="am-icon-edit nobubble" href="#"> 修改文章</a></li>
+                                    <li class="am-divider"></li>
+                                    <li><a class="am-icon-remove nobubble" href="{% url 'article_delete' %}?id={{ art.id }}"> 删除文章</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="editor-right">
+            <div class="editor-top am-margin-lg">
+                <div class="am-input-group">
+                    <input type="text" id="title" class="article-title" value="{{ art_current.title }}">
+                    <span class="am-input-group-btn">
+                    <button class="am-btn am-btn-danger am-round am-icon-plus" id="btn_post" type="button" style="border: none;"> 发布文章</button>
+                </span>
+                </div>
+            </div>
+            <div class="editor-toolbar"></div>
+            <div class="editor-text" style="overflow: auto;"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                <p>{{ art_current.content | safe }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block script %}
+    <script src="{% static 'js/wangEditor.min.js' %}"></script>
+    <script src="{% static 'js/write.js' %}"></script>
+    <script type="text/javascript">
+        let E = window.wangEditor
+        let editor = new E('.editor-toolbar', '.editor-text')
+        editor.customConfig.debug = true
+        // 配置服务器端图片上传地址
+        editor.customConfig.uploadImgServer = "{% url 'upload_ajax' %}"
+        editor.customConfig.uploadFileName = 'img'
+        editor.customConfig.zIndex = 100
+        editor.customConfig.uploadImgHeaders = {
+            'X-CSRFToken': $.cookie('csrftoken')
+        }
+        editor.create()
+        editor.txt.html('{{ art_current.content | safe }}')
+
+        $('#btn_post').click(function () {
+            $.ajax({
+                url: "{% url 'article_post' %}",
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': $.cookie('csrftoken')
+                },
+                data: {
+                    art_id: '{{ art_current.id }}',
+                    ant_id: '{{ active_ant_id }}',
+                    title: $('#title').val(),
+                    content: editor.txt.html()
+                },
+                success: function (data) {
+                    location.reload()
+                }
+            })
+        })
+
+
+        {% comment %}
+        创建文集异步请求代码：
+        1. 单击"新建文集"按钮，所以绑定单击事件
+        2. 打开弹出框，所以调用modal方法
+        3. 点击提交按钮发送请求，所以在onConfirm事件中执行异步请求
+        4. 异步请求完成，刷新页面，所以执行location.reload()
+        {% endcomment %}
+        $('#ant_create').click(function () {
+            $('#ant-create-prompt').modal({
+                relatedTarget: this,
+                onConfirm: function (e) {
+                    $.ajax({
+                        url: '{% url 'anthology_create' %}',
+                        type: 'POST',
+                        {# headers是用于把csrf_token传给diango，否则请求会被拒绝 #}
+                        {# $.cookie('csrftoken')，是获取csrftoken的值 #}
+                        headers: {
+                            'X-CSRFToken': $.cookie('csrftoken')
+                        },
+                        {#从文本框中获取文集name的值#}
+                        data: {name: e.data},
+                        {#请求完成后刷新页面#}
+                        success: function (data) {
+                            location.href='{% url 'write' %}?active_ant_id=' + data.ant_id + '&active_art_id=' + data.art_id
+                        }
+                    })
+                }
+            })
+        })
+
+        {# 修改文集名称 #}
+        $('.ant-update-btn').click(function () {
+            console.log($(this).parents('span').next())
+            $(this).parents('span').next('.ant-update-prompt').modal({
+                relatedTarget: this,
+                onConfirm: function (e) {
+                    $.ajax({
+                        url: '{% url 'anthology_update' %}',
+                        type: 'POST',
+                        {#headers是用于把csrf_token传给diango，否则请求会被拒绝 #}
+                        {#$.cookie('csrftoken')，是获取csrftoken的值 #}
+                        headers: {
+                            'X-CSRFToken': $.cookie('csrftoken')
+                        },
+                        {#从文本框中获取文集name的值#}
+                        data: {name: e.data[0], id: e.data[1]},
+                        {#请求完成后刷新页面#}
+                        success: function (data) {
+                            location.reload()
+                        }
+                    })
+                }
+            })
+        })
+
+        {#新建文章异步请求#}
+        $('#art_create').click(function () {
+            $.ajax({
+                url: '{% url 'article_create' %}',
+                type: 'POST',
+                {# headers是用于把csrf_token传给diango，否则请求会被拒绝 #}
+                {# $.cookie('csrftoken')，是获取csrftoken的值 #}
+                headers: {
+                    'X-CSRFToken': $.cookie('csrftoken')
+                },
+                {#从文本框中获取文集name的值#}
+                data: {ant_id: '{{ active_ant_id }}'},
+                {#请求完成后刷新页面#}
+                success: function (data) {
+                    location.href='{% url 'write' %}?active_ant_id=' + data.ant_id + '&active_art_id=' + data.art_id
+                }
+            })
+        })
+
+        $('.nobubble').click(function (e) {
+            e.stopPropagation()
+        })
+    </script>
+{% endblock script %}
+

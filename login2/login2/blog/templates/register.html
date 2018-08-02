@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}注册{% endblock title %}
+
+{% block link %}
+    <style>
+        body {
+            padding: 0 !important;
+            background-image: url("{% static 'img/bg.jpg' %}");
+            background-size: cover;
+        }
+
+        .form-layout {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+{% endblock link %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+    <div class="am-g form-layout">
+        <div class="am-u-md-4 am-u-md-centered">
+            <form class="am-form am-padding" action="{% url 'register' %}" method="post" style="background: #fff; box-shadow: 0 0 10px #000;">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>创建您的账号 <a class="am-align-right" href="{% url 'index' %}">返回首页</a></legend>
+                    <div class="am-form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" name="username" placeholder="输入用户名">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" name="email" placeholder="输入电子邮箱">
+                    </div>
+                    <div class="am-form-group">
+                        <label for="password">密码</label>
+                        <input type="password" name="password" placeholder="设置个密码吧">
+                    </div>
+                    <div class="am-checkbox">
+                        <label>
+                            <input type="checkbox" checked> 同意本网站使用协议
+                        </label>
+                        <label class="am-align-right">
+                            已有账号? <a href="{% url 'login' %}">登录</a>
+                        </label>
+                    </div>
+                    <p>
+                        <button type="submit" class="am-btn am-btn-block am-btn-success">注册</button>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block script %}{% endblock script %}

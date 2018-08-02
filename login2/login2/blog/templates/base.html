@@ -1,0 +1,124 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="{% block description %}{% endblock description %}">
+    <meta name="keywords" content="{% block keywords %}{% endblock keywords %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load staticfiles %}
+    <title>{% block title %}首页{% endblock title %}</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="{% static 'css/amazeui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+    </style>
+    {% block link %}{% endblock link %}
+</head>
+
+<body>
+{% block header %}
+    <header class="am-topbar am-topbar-fixed-top">
+        <div class="am-container">
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li>
+                    <h1 class="am-topbar-brand">
+                        <a class="blog-logo" href="{% url 'index' %}">博客</a>
+                    </h1>
+                </li>
+                <li class="am-active">
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">项目</a>
+                </li>
+                <li class="am-dropdown" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                        下拉
+                        <span class="am-icon-caret-down"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li class="am-dropdown-header">标题</li>
+                        <li>
+                            <a href="#">1. 去月球</a>
+                        </li>
+                        <li class="am-active">
+                            <a href="#">2. 去火星</a>
+                        </li>
+                        <li>
+                            <a href="#">3. 还是回地球</a>
+                        </li>
+                        <li class="am-disabled">
+                            <a href="#">4. 下地狱</a>
+                        </li>
+                        <li class="am-divider"></li>
+                        <li>
+                            <a href="#">5. 桥头一回首</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="am-topbar-form am-topbar-left am-form-inline" role="search">
+                <div class="am-form-group">
+                    <input type="text" class="am-form-field am-input-sm am-round" placeholder="搜索">
+                </div>
+            </form>
+            <div class="am-topbar-right">
+                <a class="am-btn am-btn-danger am-topbar-btn am-btn-sm am-round am-icon-plus" href="{% url 'write' %}"> 写文章</a>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="am-topbar-right">
+                    <div class="am-dropdown" data-am-dropdown="{boundary: '.am-topbar'}">
+                        <button class="am-btn am-btn-link am-topbar-btn am-dropdown-toggle" data-am-dropdown-toggle>{{ user.username }} <span class="am-icon-caret-down"></span></button>
+                        <ul class="am-dropdown-content">
+                            <li><a href="#">我的主页</a></li>
+                            <li><a href="{% url 'logout' %}">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="am-topbar-right">
+                    <a class="am-btn am-btn-primary am-topbar-btn am-btn-sm am-round" href="{% url 'register' %}">注册</a>
+                </div>
+                <div class="am-topbar-right">
+                    <a class="am-btn am-btn-link am-topbar-btn am-btn-sm am-round" href="{% url 'login' %}">登录</a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+{% endblock header %}
+
+{% block content %}
+{% endblock content %}
+
+{% block footer %}
+    <footer class="am-container am-text-center am-padding-lg">©2012-2018 北邮在线博客</footer>
+    <button data-am-smooth-scroll class="am-btn am-btn-default" id="gotop" style="position: fixed; right: 70px; bottom: 70px;">
+        <span class="am-icon-arrow-up am-text-lg"></span>
+    </button>
+{% endblock footer %}
+
+<script src="{% static 'js/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/amazeui.min.js' %}"></script>
+<script>
+    $(function () {
+        $(window).scroll(function () {
+            if($(this).scrollTop() < 300) {
+                $('#gotop').hide()
+            } else {
+                $('#gotop').show()
+            }
+        })
+    })
+</script>
+{% block script %}
+{% endblock script %}
+</body>
+
+</html>

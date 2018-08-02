@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock title %}
+
+{% block content %}
+    <div class="am-g am-container">
+        <div class="am-u-md-8">
+            <div class="am-slider am-slider-default" data-am-flexslider id="demo-slider-0">
+                <ul class="am-slides">
+                    <li><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg"/></li>
+                    <li><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg"/></li>
+                    <li><img src="http://s.amazeui.org/media/i/demos/bing-3.jpg"/></li>
+                </ul>
+            </div>
+            {% for article in articles %}
+            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">
+                <div class="am-u-md-9">
+                    <h2><a class="am-link-muted" href="{% url 'article' %}">{{ article.title }}</a></h2>
+                    <p class="am-text-sm">
+                        {{ article.content | safe }}
+                    </p>
+                    <div class="am-text-xs">
+                        <a class="am-link-muted" href="">大蘑菇</a>
+                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>
+                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>
+                    </div>
+                </div>
+                <div class="am-u-md-3">
+                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>
+                </div>
+            </div>
+            {% endfor %}
+
+{#            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">#}
+{#                <div class="am-u-md-9">#}
+{#                    <h2><a class="am-link-muted" href="">夫妻对话</a></h2>#}
+{#                    <p class="am-text-sm">#}
+{#                        文/向上 夫说： “老婆， 你对我太好了！ 下辈子我还娶你。” 妻说： “老公，不！ 下辈子我要做男的， 如果你是女的我娶你” 夫说： “好的！...#}
+{#                    </p>#}
+{#                    <div class="am-text-xs">#}
+{#                        <a class="am-link-muted" href="">大蘑菇</a>#}
+{#                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>#}
+{#                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="am-u-md-3">#}
+{#                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">#}
+{#                <div class="am-u-md-9">#}
+{#                    <h2><a class="am-link-muted" href="">夫妻对话</a></h2>#}
+{#                    <p class="am-text-sm">#}
+{#                        文/向上 夫说： “老婆， 你对我太好了！ 下辈子我还娶你。” 妻说： “老公，不！ 下辈子我要做男的， 如果你是女的我娶你” 夫说： “好的！...#}
+{#                    </p>#}
+{#                    <div class="am-text-xs">#}
+{#                        <a class="am-link-muted" href="">大蘑菇</a>#}
+{#                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>#}
+{#                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="am-u-md-3">#}
+{#                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">#}
+{#                <div class="am-u-md-9">#}
+{#                    <h2><a class="am-link-muted" href="">夫妻对话</a></h2>#}
+{#                    <p class="am-text-sm">#}
+{#                        文/向上 夫说： “老婆， 你对我太好了！ 下辈子我还娶你。” 妻说： “老公，不！ 下辈子我要做男的， 如果你是女的我娶你” 夫说： “好的！...#}
+{#                    </p>#}
+{#                    <div class="am-text-xs">#}
+{#                        <a class="am-link-muted" href="">大蘑菇</a>#}
+{#                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>#}
+{#                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="am-u-md-3">#}
+{#                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">#}
+{#                <div class="am-u-md-9">#}
+{#                    <h2><a class="am-link-muted" href="">夫妻对话</a></h2>#}
+{#                    <p class="am-text-sm">#}
+{#                        文/向上 夫说： “老婆， 你对我太好了！ 下辈子我还娶你。” 妻说： “老公，不！ 下辈子我要做男的， 如果你是女的我娶你” 夫说： “好的！...#}
+{#                    </p>#}
+{#                    <div class="am-text-xs">#}
+{#                        <a class="am-link-muted" href="">大蘑菇</a>#}
+{#                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>#}
+{#                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="am-u-md-3">#}
+{#                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="am-g am-padding-vertical-lg" style="border-bottom: 1px solid #c0c0c0;">#}
+{#                <div class="am-u-md-9">#}
+{#                    <h2><a class="am-link-muted" href="">夫妻对话</a></h2>#}
+{#                    <p class="am-text-sm">#}
+{#                        文/向上 夫说： “老婆， 你对我太好了！ 下辈子我还娶你。” 妻说： “老公，不！ 下辈子我要做男的， 如果你是女的我娶你” 夫说： “好的！...#}
+{#                    </p>#}
+{#                    <div class="am-text-xs">#}
+{#                        <a class="am-link-muted" href="">大蘑菇</a>#}
+{#                        <a class="am-link-muted am-margin" href=""><span class="am-icon-comment"> 20</span></a>#}
+{#                        <a class="am-link-muted" href=""><span class="am-icon-heart"> 40</span></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="am-u-md-3">#}
+{#                    <img class="am-thumbnail" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""/>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+
+        <div class="am-u-md-4">
+            <section class="am-panel am-panel-default">
+                <header class="am-panel-hd">
+                    <div class="am-panel-title am-text-sm">推荐博主
+                        <a class="am-align-right" href=""><span class="am-icon-refresh"> 换一批</span></a>
+                    </div>
+                </header>
+                <div class="am-panel-bd">
+                    <div class="am-g am-cf am-padding-horizontal-sm am-padding-vertical-sm">
+                        <img class="am-circle am-align-left" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" width="45" height="45">
+                        <div class="am-align-left">
+                            <h4 class="am-margin-0">乱码七糟</h4>
+                            <div class="am-text-xs">
+                                <span>写满了139k字</span><span class="am-margin">5喜欢</span>
+                            </div>
+                        </div>
+                        <a class="am-align-right am-text-sm am-text-success am-margin-0" href="">+关注</a>
+                    </div>
+                    <div class="am-g am-cf am-padding-horizontal-sm am-padding-vertical-sm">
+                        <img class="am-circle am-align-left" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" width="45" height="45">
+                        <div class="am-align-left">
+                            <h4 class="am-margin-0">乱码七糟</h4>
+                            <div class="am-text-xs">
+                                <span>写满了139k字</span><span class="am-margin">5喜欢</span>
+                            </div>
+                        </div>
+                        <a class="am-align-right am-text-sm am-text-success am-margin-0" href="">+关注</a>
+                    </div>
+                    <div class="am-g am-cf am-padding-horizontal-sm am-padding-vertical-sm">
+                        <img class="am-circle am-align-left" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" width="45" height="45">
+                        <div class="am-align-left">
+                            <h4 class="am-margin-0">乱码七糟</h4>
+                            <div class="am-text-xs">
+                                <span>写满了139k字</span><span class="am-margin">5喜欢</span>
+                            </div>
+                        </div>
+                        <a class="am-align-right am-text-sm am-text-success am-margin-0" href="">+关注</a>
+                    </div>
+                    <div class="am-g am-cf am-padding-horizontal-sm am-padding-vertical-sm">
+                        <img class="am-circle am-align-left" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt="" width="45" height="45">
+                        <div class="am-align-left">
+                            <h4 class="am-margin-0">乱码七糟</h4>
+                            <div class="am-text-xs">
+                                <span>写满了139k字</span><span class="am-margin">5喜欢</span>
+                            </div>
+                        </div>
+                        <a class="am-align-right am-text-sm am-text-success am-margin-0" href="">+关注</a>
+                    </div>
+                    <div>
+                        <button class="am-btn am-btn-default am-btn-block am-radius am-text-sm">查看全部 ></button>
+                    </div>
+                </div>
+            </section>
+            <section class="am-panel am-panel-default">
+                <header class="am-panel-hd">
+                    <div class="am-panel-title am-text-sm">热门标签
+                        <a class="am-align-right" href=""><span class="am-icon-refresh"> 换一批</span></a>
+                    </div>
+                </header>
+                <div class="am-panel-bd">
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">Django</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">爬虫</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">全栈开发</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">博客系统</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">人工智能</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">数据库</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">node.js</a>
+                    <a class="am-btn-default am-padding-xs am-margin-xs am-radius am-inline-block" href="">前端框架</a>
+                </div>
+            </section>
+            <div><img class="am-img-responsive" src="http://s.amazeui.org/media/i/demos/bing-1.jpg" alt=""></div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

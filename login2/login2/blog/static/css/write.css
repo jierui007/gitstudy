@@ -1,0 +1,53 @@
+.layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.side-left {
+    width: 17%;
+    height: 100%;
+    background-color: #555;
+}
+
+.list-center {
+    width: 23%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #fff;
+}
+
+.editor-right {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 5px #999;
+}
+
+.editor-top {
+    flex: none;
+}
+
+.editor-toolbar {
+    flex: none;
+    background-color: #e1e1e1;
+}
+
+.editor-text {
+    flex: auto;
+    height: 100%;
+    min-height: 400px;
+}
+
+.article-title {
+    width: 100%;
+    outline: none !important;
+    border: none !important;
+    font-size: 30px !important;
+}
+
+.am-round {
+    border-radius: 1000px !important;
+}
